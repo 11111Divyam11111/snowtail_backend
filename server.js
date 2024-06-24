@@ -9,7 +9,13 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-
+app.use('/static', express.static('public', {
+  setHeaders: (res, path) => {
+      if (path.endsWith('.js')) {
+          res.setHeader('Content-Type', 'application/javascript');
+      }
+  }
+}));
 app.use(
   cors({
     origin: [process.env.SNOWTAIL_URL, process.env.BASE_URL],
