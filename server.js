@@ -9,8 +9,6 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-console.log("SNOWTAIL_URL:", process.env.SNOWTAIL_URL);
-console.log("BASE_URL:", process.env.BASE_URL);
 
 app.use(
   cors({
@@ -43,7 +41,7 @@ app.post("/send-email", (req, res) => {
       You can contact me by:
         ◆ Phone: ${isd} ${phone}
         ◆ Email: ${email}
-      ${flexibleYes ? "Yes, I am flexible with my travel dates" : "No, I am not flexible with my travel dates"}`
+      ${flexibleYes && "Yes, I am flexible with my travel dates"}`
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
