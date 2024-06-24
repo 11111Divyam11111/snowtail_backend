@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: `${process.env.SNOWTAIL_URL}`,
+    origin: [`${process.env.SNOWTAIL_URL}`, `${process.env.BASE_URL}`]
   })
 );
 app.use(bodyParser.json());
