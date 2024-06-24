@@ -9,9 +9,12 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+console.log("SNOWTAIL_URL:", process.env.SNOWTAIL_URL);
+console.log("BASE_URL:", process.env.BASE_URL);
+
 app.use(
   cors({
-    origin: [`${process.env.SNOWTAIL_URL}`, `${process.env.BASE_URL}`]
+    origin: [process.env.SNOWTAIL_URL, process.env.BASE_URL],
   })
 );
 app.use(bodyParser.json());
@@ -52,11 +55,9 @@ app.post("/send-email", (req, res) => {
   });
 });
 
-
 app.get("/send-email", (req, res) => {
   res.send("Hello from server");
 });
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-});
