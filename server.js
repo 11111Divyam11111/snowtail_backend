@@ -3,25 +3,14 @@ const nodemailer = require("nodemailer");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const path = require("path"); // Add this line
+const ItineraryRoutes = require('./route/ItineraryRoutes');
+require('./db');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
-
-// Serve static files correctly
-app.use('/static', express.static(path.join(__dirname, 'public'), {
-  setHeaders: (res, path) => {
-      if (path.endsWith('.js')) {
-          res.setHeader('Content-Type', 'application/javascript');
-      }
-  }
-}));
-
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
-});
+app.use('/api', ItineraryRoutes);
 
 app.use(
   cors({
@@ -66,6 +55,10 @@ app.post("/send-email", (req, res) => {
     res.status(200).send("Email sent: " + info.response);
   });
 });
+
+app.get('/',(req,res)=>{
+  res.send("hello buradar")
+})
 
 app.get("/send-email", (req, res) => {
   res.send("Hello from server");
